@@ -9,3 +9,4 @@ const inventory = [
   ...household,
 ];
 console.log("Inventory loaded:", inventory.length);
+i
