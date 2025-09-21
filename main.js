@@ -13,7 +13,7 @@ console.log("Inventory loaded:", inventory.length);
 
 //Function to add a product to the system
 
-const addProduct = (id, category, name, price, quantity) => {
+const addProduct = (id, category = "Uncategorized", name, price, quantity) => {
     //To make sure there are no duplicates
 if (inventory.some(product => product.id === id)) {
     throw new Error("A product with this id exists in the system");
@@ -53,6 +53,29 @@ if (typeof quantity !== 'number' || isNaN(quantity) || quantity < 0) {
     inventory.push(product);
     console.log(`Success! This product: ${name}, has been added to the inventory`);
 }
+
+//Prompt
+
+const getInput = () => {
+    let id = prompt("Please enter an id");
+    let category = prompt("Please enter a category");
+    let name = prompt("Please enter a name");
+    let price = prompt("Please enter a price");
+    let quantity = prompt("Please enter a quantity");
+
+    //Let's convert to the correct data type
+
+    id = parseInt(id);
+    price = parseFloat(price);
+    quantity = parseInt(quantity);
+
+    //For the default value
+
+    if (category === null || category.trim() === "") {
+        category = "Uncategorized";
+    }
+    return { id, category, name, price, quantity};
+} 
 
 //Testing 
 
