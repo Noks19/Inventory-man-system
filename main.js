@@ -1,58 +1,16 @@
 
-const stockInventory = [];
 
-const addStockInventory = (name, category, productId, price, quantity) => {
-  // local variable (local scope) inventory
-  const inventory = {
-    name: name,
-    category: category,
-    productId: productId,
-    price: price,
-    quantity: quantity,
-  };
-  stockInventory.push(inventory); // global variable // global scope
-};
-
-const findInventoryByName = (productId) => {
-  const inventory = stockInventory.find(function(inv)
-  {if (inv.productId === productId) {
-    return true;
-  }
-  return false;
-});
-return inventory;
-};
-
-
-// Update Stock 
-function updateStockQuantity(productId, changeAmount) {
-  let productFound = false;
-  // For Loop: iterate to find and update
-  for (let i = 0; i < inventory.length; i++) {
-    if (inventory[i].id === productId) {
-      inventory[i].quantity = changeAmount;
-      productFound = true;
-      console.log(`Stock for productID ${id} updated to ${changeAmount}.`);
-    }
-  }
-
-  if (!productFound) {
-    console.log(`Product with ID ${id} not found.`);
-  }
-}
-
-
-const inventory = [
-  ...bakery,
-  ...beverages,
-  ...cannedGoods,
-  ...dairy,
-  ...frozen,
-  ...produce,
-  ...snacks,
-  ...household,
-];
-console.log("Inventory loaded:", inventory.length);
+// const inventory = [
+//   ...bakery,
+//   ...beverages,
+//   ...cannedGoods,
+//   ...dairy,
+//   ...frozen,
+//   ...produce,
+//   ...snacks,
+//   ...household,
+// ];
+// console.log("Inventory loaded:", inventory.length);
 
 
 //Function to add a product to the system
@@ -129,14 +87,57 @@ addProduct (52523498145, "Bakery", "Cinammon Cookies", 1500, 2700); //A successf
 
 addProduct (12345678910, "CannedGoods", "Cherry Tomato", 880, 100); //Another successful test
 
- addProduct(7738311193, "", "Coconut Bread", 2900, 50); //Throws a duplicate id + the empty category
+//  addProduct(7738311193, "", "Coconut Bread", 2900, 50); //Throws a duplicate id + the empty category
 
-    addProduct(9603410528, "Produce", "Cassava", -3500, 5); //Throws an error for the negative price
+//     addProduct(9603410528, "Produce", "Cassava", -3500, 5); //Throws an error for the negative price
 
     addProduct(30008492285, "Dairy", "Miliki", 650, 28);
 
 console.log("Inventory loaded: ", inventory.length);    
 
+const stockInventory = [];
 
+const addStockInventory = (name, category, id, price, quantity) => {
+  // local variable (local scope) inventory
+  const inventory = {
+    name: name,
+    category: category,
+    id: id,
+    price: price,
+    quantity: quantity,
+  };
+  stockInventory.push(inventory); // global variable // global scope
+};
+
+const findInventoryByName = (productId) => {
+  const inventory = stockInventory.find(function(inv)
+  {if (inv.productId === productId) {
+    return true;
+  }
+  return false;
+});
+return inventory;
+};
+
+
+// Update Stock 
+function updateStockQuantity(id, changeAmount) {
+
+  const productId = 1651824508
+  console.log(productId)
+
+  const quantityUpdate = 200
+  console.log(quantityUpdate)
+
+  let index = inventory.findIndex(product => product.id === Number(productId))
+if (index !== -1){
+  inventory[index].quantity = quantityUpdate
+  console.log(`stock for product ${inventory[index].name} ${inventory[index].id} updated to ${quantityUpdate}.`);
+} else {
+  console.log(`stock for product ${inventory[index].id} not found.`);
+}
+
+}
+  
 
 
