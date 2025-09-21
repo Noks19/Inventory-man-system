@@ -1,10 +1,8 @@
 
 //Function to add a product to the system
 
-
 const addProduct = (id, category, name, price, quantity) => {
     //To make sure there are no duplicates
-
 if (inventory.some(product => product.id === id)) {
     throw new Error("A product with this id exists in the system");
 }
