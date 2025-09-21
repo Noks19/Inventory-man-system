@@ -1,142 +1,158 @@
+// Function to add product
 
-const stockInventory = [];
+function generateUniqueId() {
+  const existingIds = inventory.map((p) => p.id);
 
-const addStockInventory = (name, category, productId, price, quantity) => {
-  // local variable (local scope) inventory
-  const inventory = {
-    name: name,
-    category: category,
-    productId: productId,
-    price: price,
-    quantity: quantity,
+  let id = Math.floor(1000000000 + Math.random() * 9000000000);
+  if (existingIds.includes(id)) {
+    id = Math.floor(1000000000 + Math.random() * 9000000000);
+  }
+
+  return id;
+}
+
+function addProduct() {
+  const categories = [...new Set(inventory.map((p) => p.category))];
+  let categoryPrompt = "Please enter a category";
+  if (categories.length > 0) {
+    categoryPrompt += ` (Existing categories: ${categories.join(", ")})`;
+  }
+  let category = prompt(categoryPrompt);
+  if (!category || category.trim() === "") {
+    category = "Uncategorized";
+  }
+
+  const id = generateUniqueId();
+
+  // Name
+  let name = prompt("Please enter the product name:");
+  if (!name || name.trim() === "") {
+    alert("Please provide a non-empty name.");
+    return;
+  }
+
+  // Price
+  let price = parseFloat(prompt("Please enter the price:"));
+  if (isNaN(price) || price < 0) {
+    alert("Price must be a positive number.");
+    return;
+  }
+
+  // Quantity
+  let quantity = parseInt(prompt("Please enter the quantity:"));
+  if (isNaN(quantity) || quantity < 0) {
+    alert("Quantity must be a positive number.");
+    return;
+  }
+
+  const product = {
+    id,
+    category,
+    name,
+    price,
+    quantity,
   };
-  stockInventory.push(inventory); // global variable // global scope
-};
 
-const findInventoryByName = (productId) => {
-  const inventory = stockInventory.find(function(inv)
-  {if (inv.productId === productId) {
-    return true;
-  }
-  return false;
-});
-return inventory;
-};
+  inventory.push(product);
+  console.log("Product Added:", product);
+  alert(
+    `'${name}' added successfully!\nCategory: ${category}\nName: ${name}\nID: ${id}\nPrice: ${price}\nQuantity: ${quantity}`
+  );
+}
 
-
-// Update Stock 
-function updateStockQuantity(productId, changeAmount) {
-  let productFound = false;
-  // For Loop: iterate to find and update
-  for (let i = 0; i < inventory.length; i++) {
-    if (inventory[i].id === productId) {
-      inventory[i].quantity = changeAmount;
-      productFound = true;
-      console.log(`Stock for productID ${id} updated to ${changeAmount}.`);
-    }
+function removeProduct() {
+  if (inventory.length === 0) {
+    alert("Inventory is empty. Nothing to remove.");
+    return;
   }
 
-  if (!productFound) {
-    console.log(`Product with ID ${id} not found.`);
+  const categories = [...new Set(inventory.map((p) => p.category))];
+
+  const category = prompt(
+    `Please enter the category of the product you want to remove:\n${categories.join(
+      ", "
+    )}`
+  );
+
+  if (!category || category.trim() === "") {
+    alert("No category entered. Operation cancelled.");
+    return;
+  }
+
+  const productsInCategory = inventory.filter(
+    (p) => p.category.toLowerCase() === category.toLowerCase()
+  );
+
+  if (productsInCategory.length === 0) {
+    alert(`No products found in category '${category}'.`);
+    return;
+  }
+
+  const productName = prompt(
+    `Products in '${category}':\n${productsInCategory
+      .map((p) => p.name)
+      .join(", ")}\n\nEnter the name of the product you want to remove:`
+  );
+
+  if (!productName || productName.trim() === "") {
+    alert("No product name entered. Operation cancelled.");
+    return;
+  }
+
+  const index = inventory.findIndex(
+    (p) =>
+      p.name.toLowerCase() === productName.toLowerCase() &&
+      p.category.toLowerCase() === category.toLowerCase()
+  );
+
+  if (index === -1) {
+    alert(`Product '${productName}' was not found in category '${category}'.`);
+    return;
+  }
+
+  const productToRemove = inventory[index];
+
+  const confirmDelete = confirm(
+    `Are you sure you want to remove '${productToRemove.name}' from the '${productToRemove.category}' category?\n\nThis action cannot be undone.`
+  );
+
+  if (!confirmDelete) {
+    alert("Product removal cancelled. No changes made.");
+    return;
+  }
+
+  const removed = inventory.splice(index, 1);
+
+  alert(
+    `Product '${removed[0].name}' (${removed[0].category}) removed successfully!\nRemaining items in inventory: ${inventory.length}`
+  );
+}
+
+console.log("Updated Inventory:", inventory);
+
+function inventoryApplication() {
+  const choice = prompt(
+    "Enter a command:\n1. Add Product\n2. Remove Product\n3. Update Stock\n4. Generate Report\n5. Exit"
+  );
+
+  if (choice === "1") {
+    addProduct();
+  } else if (choice === "2") {
+    removeProduct();
+  } else if (choice === "3") {
+    updateStock();
+  } else if (choice === "4") {
+    generateReport();
+  } else if (choice === "5") {
+    alert("Exiting application. Goodbye!");
+    return;
+  } else {
+    alert("Invalid command.");
+  }
+
+  if (choice !== "5") {
+    inventoryApplication();
   }
 }
 
-
-const inventory = [
-  ...bakery,
-  ...beverages,
-  ...cannedGoods,
-  ...dairy,
-  ...frozen,
-  ...produce,
-  ...snacks,
-  ...household,
-];
-console.log("Inventory loaded:", inventory.length);
-
-
-//Function to add a product to the system
-
-const addProduct = (id, category = "Uncategorized", name, price, quantity) => {
-    //To make sure there are no duplicates
-if (inventory.some(product => product.id === id)) {
-    throw new Error("A product with this id exists in the system");
-}
-
-//Parametre validations
-
-if (typeof id !== 'number' || isNaN(id)) {
-    throw new Error ("Please provide a valid number");
-}
-
-if (typeof category !== 'string' || category.trim() === '') {
-    throw new Error("Please provide a non-empty string");
-}
-
-if (typeof name !== 'string' || name.trim() === '') {
-    throw new Error ("Please provide a non-empty string");
-}
-
-if (typeof price !== 'number' || isNaN(price) || price < 0) {
-    throw new Error("Stop - use positive numbers only");
-}
-
-if (typeof quantity !== 'number' || isNaN(quantity) || quantity < 0) {
-    throw new Error("Stop - use positive numbers only");
-}
-
-//If the parametre validations check out, create and add
-    const product = {
-        id,
-        category,
-        name,
-        price,
-        quantity
-    };
-
-    inventory.push(product);
-    console.log(`Success! This product: ${name}, has been added to the inventory`);
-}
-
-//Prompt
-
-const getInput = () => {
-    let id = prompt("Please enter an id");
-    let category = prompt("Please enter a category");
-    let name = prompt("Please enter a name");
-    let price = prompt("Please enter a price");
-    let quantity = prompt("Please enter a quantity");
-
-    //Let's convert to the correct data type
-
-    id = parseInt(id);
-    price = parseFloat(price);
-    quantity = parseInt(quantity);
-
-    //For the default value
-
-    if (category === null || category.trim() === "") {
-        category = "Uncategorized";
-    }
-    return { id, category, name, price, quantity};
-} 
-
-//Testing 
-
-console.log("Inventory loaded: before", inventory.length);
-
-addProduct (52523498145, "Bakery", "Cinammon Cookies", 1500, 2700); //A successful test
-
-addProduct (12345678910, "CannedGoods", "Cherry Tomato", 880, 100); //Another successful test
-
- addProduct(7738311193, "", "Coconut Bread", 2900, 50); //Throws a duplicate id + the empty category
-
-    addProduct(9603410528, "Produce", "Cassava", -3500, 5); //Throws an error for the negative price
-
-    addProduct(30008492285, "Dairy", "Miliki", 650, 28);
-
-console.log("Inventory loaded: ", inventory.length);    
-
-
-
-
+inventoryApplication();
