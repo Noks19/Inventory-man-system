@@ -1,3 +1,15 @@
+const inventory = [
+  ...bakery,
+  ...beverages,
+  ...cannedGoods,
+  ...dairy,
+  ...frozen,
+  ...produce,
+  ...snacks,
+  ...household,
+];
+console.log("Inventory loaded:", inventory.length);
+
 
 //Function to add a product to the system
 
@@ -57,6 +69,7 @@ addProduct (12345678910, "CannedGoods", "Cherry Tomato", 880, 100); //Another su
     addProduct(30008492285, "Dairy", "Miliki", 650, 28);
 
 console.log("Inventory loaded: ", inventory.length);    
+
 
 
 
