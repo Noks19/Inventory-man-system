@@ -1,27 +1,4 @@
-// const inventory = [
-//   ...bakery,
-//   ...beverages,
-//   ...cannedGoods,
-//   ...dairy,
-//   ...frozen,
-//   ...produce,
-//   ...snacks,
-//   ...household,
-// ];
-// console.log("Inventory loaded:", inventory.length);
-
 // Function to add product
-
-function generateUniqueId() {
-  const existingIds = inventory.map((p) => p.id);
-
-  let id = Math.floor(1000000000 + Math.random() * 9000000000);
-  if (existingIds.includes(id)) {
-    id = Math.floor(1000000000 + Math.random() * 9000000000);
-  }
-
-  return id;
-}
 
 function addProduct() {
   const categories = [...new Set(inventory.map((p) => p.category))];
@@ -33,8 +10,6 @@ function addProduct() {
   if (!category || category.trim() === "") {
     category = "Uncategorized";
   }
-
-  const id = generateUniqueId();
 
   // Name
   let name = prompt("Please enter the product name:");
@@ -72,6 +47,17 @@ function addProduct() {
   );
 }
 
+function generateUniqueId() {
+  const existingIds = inventory.map((p) => p.id);
+
+  let id = Math.floor(1000000000 + Math.random() * 9000000000);
+  if (existingIds.includes(id)) {
+    id = Math.floor(1000000000 + Math.random() * 9000000000);
+  }
+
+  return id;
+}
+
 function removeProduct() {
   if (inventory.length === 0) {
     alert("Inventory is empty. Nothing to remove.");
@@ -87,6 +73,7 @@ function removeProduct() {
     )}`
   );
 
+  const id = generateUniqueId();
   if (!category || category.trim() === "") {
     alert("No category entered. Operation cancelled.");
     console.log("Remove cancelled: No category entered.");
@@ -151,8 +138,6 @@ function removeProduct() {
   console.log("Updated Inventory:", inventory);
 }
 
-
-
 // Update Stock
 function updateStockQuantity() {
   if (inventory.length === 0) {
@@ -197,8 +182,6 @@ function updateStockQuantity() {
     console.log(`Product with ID ${productId} not found.`);
   }
 }
-
-
 
 function generateReport() {
   const totalProducts = inventory.length;
