@@ -123,10 +123,10 @@ return inventory;
 // Update Stock 
 function updateStockQuantity(id, changeAmount) {
 
-  const productId = 1651824508
+  const productId = prompt("Enter productId")
   console.log(productId)
 
-  const quantityUpdate = 200
+  const quantityUpdate = prompt("Enter quantityUpdate")
   console.log(quantityUpdate)
 
   let index = inventory.findIndex(product => product.id === Number(productId))
