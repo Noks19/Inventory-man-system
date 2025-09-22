@@ -274,6 +274,7 @@ if (index !== -1){
     );
   }
 
+<<<<<<< Updated upstream
   alert(
     `Report:\n ` +
       `Total products: ${totalProducts}\n` +
@@ -333,3 +334,6 @@ function mainMenu() {
   } while (choice !== "5" && choice !== null);
 }
 
+=======
+ 
+>>>>>>> Stashed changes
