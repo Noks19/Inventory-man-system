@@ -1,5 +1,16 @@
 // Function to add product
 
+function generateUniqueId() {
+  const existingIds = inventory.map((p) => p.id);
+
+  let id = Math.floor(1000000000 + Math.random() * 9000000000);
+  if (existingIds.includes(id)) {
+    id = Math.floor(1000000000 + Math.random() * 9000000000);
+  }
+
+  return id;
+}
+
 function addProduct() {
   const categories = [...new Set(inventory.map((p) => p.category))];
   let categoryPrompt = "Please enter a category";
@@ -32,6 +43,8 @@ function addProduct() {
     return;
   }
 
+  const id = generateUniqueId();
+
   const product = {
     id,
     category,
@@ -45,17 +58,6 @@ function addProduct() {
   alert(
     `'${name}' added successfully!\nCategory: ${category}\nName: ${name}\nID: ${id}\nPrice: ${price}\nQuantity: ${quantity}`
   );
-}
-
-function generateUniqueId() {
-  const existingIds = inventory.map((p) => p.id);
-
-  let id = Math.floor(1000000000 + Math.random() * 9000000000);
-  if (existingIds.includes(id)) {
-    id = Math.floor(1000000000 + Math.random() * 9000000000);
-  }
-
-  return id;
 }
 
 function removeProduct() {
@@ -72,8 +74,6 @@ function removeProduct() {
       ", "
     )}`
   );
-
-  const id = generateUniqueId();
   if (!category || category.trim() === "") {
     alert("No category entered. Operation cancelled.");
     console.log("Remove cancelled: No category entered.");
