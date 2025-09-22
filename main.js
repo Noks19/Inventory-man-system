@@ -1,4 +1,3 @@
-
 // Function to add product
 
 function generateUniqueId() {
@@ -158,7 +157,7 @@ function inventoryApplication() {
 
 inventoryApplication();
 
- generat-product
+generat - product;
 console.log("Inventory loaded:", inventory.length);
 
 function generateReport() {
@@ -196,7 +195,7 @@ function generateReport() {
       console.log(`-${Item.name} (Quantity: ${Item.quantity})`);
     }
   } else {
-   console.log("No low stock item!");
+    console.log("No low stock item!");
   }
 
   if (highestValueProduct) {
@@ -219,7 +218,6 @@ function generateReport() {
       `Low Stock Items: ${lowStockItems.length}`
   );
 }
-<<<<<<< HEAD
 
 function mainMenu() {
   let choice;
@@ -268,8 +266,3 @@ function mainMenu() {
 }
 
 mainMenu();
-=======
-generateReport()
-
- main
->>>>>>> 9a1e84b24fd77b2caa418950a4fbac58191f4db2
