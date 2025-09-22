@@ -1,5 +1,6 @@
 
 
+
 // const inventory = [
 //   ...bakery,
 //   ...beverages,
@@ -11,6 +12,7 @@
 //   ...household,
 // ];
 // console.log("Inventory loaded:", inventory.length);
+
 
 // Function to add product
 
@@ -176,7 +178,7 @@ function inventoryApplication() {
 //     addProduct(9603410528, "Produce", "Cassava", -3500, 5); //Throws an error for the negative price
 inventoryApplication();
 
- generat-product
+generat - product;
 console.log("Inventory loaded:", inventory.length);
 
 
@@ -261,7 +263,7 @@ if (index !== -1){
       console.log(`-${Item.name} (Quantity: ${Item.quantity})`);
     }
   } else {
-   console.log("No low stock item!");
+    console.log("No low stock item!");
   }
 
   if (highestValueProduct) {
@@ -271,7 +273,63 @@ if (index !== -1){
       } ($${highestValue.toFixed(2)})`
     );
   }
-}
-generateReport()
 
- 
+  alert(
+    `Report:\n ` +
+      `Total products: ${totalProducts}\n` +
+      `Total Value: ${totalValue.toFixed(2)}\n` +
+      (highestValueProduct
+        ? `Highest value: ${highestValueProduct.name} ($${highestValue.toFixed(
+            2
+          )})\n`
+        : "") +
+      `Low Stock Items: ${lowStockItems.length}`
+  );
+}
+
+function mainMenu() {
+  let choice;
+
+  do {
+    choice = prompt(
+      "Inventory Management Menu:\n" +
+        "1. Add Product \n" +
+        "2. Remove Product \n" +
+        "3. Update Stock\n" +
+        "4. Generate Report\n" +
+        "5. Exit\n\n" +
+        "Enter your choice (1-5):"
+    );
+
+    if (choice === null) {
+      break;
+    }
+
+    switch (choice.trim()) {
+      case "1":
+        alert("Add Product feature.");
+        break;
+
+      case "2":
+        alert("Remove Product feature.");
+        break;
+
+      case "3":
+        alert("Update Stock feature.");
+        break;
+
+      case "4":
+        generateReport();
+        break;
+
+      case "5":
+        alert("Exiting Inventory Management System.");
+        break;
+
+      default:
+        alert("Invalid choice. Please enter 1-5.");
+        break;
+    }
+  } while (choice !== "5" && choice !== null);
+}
+
