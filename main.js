@@ -45,5 +45,64 @@ function generateReport() {
       } ($${highestValue.toFixed(2)})`
     );
   }
+
+  alert(
+    `Report:\n ` +
+      `Total products: ${totalProducts}\n` +
+      `Total Value: ${totalValue.toFixed(2)}\n` +
+      (highestValueProduct
+        ? `Highest value: ${highestValueProduct.name} ($${highestValue.toFixed(
+            2
+          )})\n`
+        : "") +
+      `Low Stock Items: ${lowStockItems.length}`
+  );
 }
-generateReport();
+
+function mainMenu() {
+  let choice;
+
+  do {
+    choice = prompt(
+      "Inventory Management Menu:\n" +
+        "1. Add Product \n" +
+        "2. Remove Product \n" +
+        "3. Update Stock\n" +
+        "4. Generate Report\n" +
+        "5. Exit\n\n" +
+        "Enter your choice (1-5):"
+    );
+
+    if (choice === null) {
+      break;
+    }
+
+    switch (choice.trim()) {
+      case "1":
+        alert("Add Product feature.");
+        break;
+
+      case "2":
+        alert("Remove Product feature.");
+        break;
+
+      case "3":
+        alert("Update Stock feature.");
+        break;
+
+      case "4":
+        generateReport();
+        break;
+
+      case "5":
+        alert("Exiting Inventory Management System.");
+        break;
+
+      default:
+        alert("Invalid choice. Please enter 1-5.");
+        break;
+    }
+  } while (choice !== "5" && choice !== null);
+}
+
+mainMenu();
