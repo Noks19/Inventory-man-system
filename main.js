@@ -1,4 +1,17 @@
 
+
+// const inventory = [
+//   ...bakery,
+//   ...beverages,
+//   ...cannedGoods,
+//   ...dairy,
+//   ...frozen,
+//   ...produce,
+//   ...snacks,
+//   ...household,
+// ];
+// console.log("Inventory loaded:", inventory.length);
+
 // Function to add product
 
 function generateUniqueId() {
@@ -31,6 +44,7 @@ function addProduct() {
     alert("Please provide a non-empty name.");
     return;
   }
+
 
   // Price
   let price = parseFloat(prompt("Please enter the price:"));
@@ -156,10 +170,15 @@ function inventoryApplication() {
   }
 }
 
+
+//  addProduct(7738311193, "", "Coconut Bread", 2900, 50); //Throws a duplicate id + the empty category
+
+//     addProduct(9603410528, "Produce", "Cassava", -3500, 5); //Throws an error for the negative price
 inventoryApplication();
 
  generat-product
 console.log("Inventory loaded:", inventory.length);
+
 
 function generateReport() {
   const totalProducts = inventory.length;
@@ -170,6 +189,51 @@ function generateReport() {
 
   for (let i = 0; i < inventory.length; i++) {
     const product = inventory[i];
+
+const stockInventory = [];
+
+const addStockInventory = (name, category, id, price, quantity) => {
+  // local variable (local scope) inventory
+  const inventory = {
+    name: name,
+    category: category,
+    id: id,
+    price: price,
+    quantity: quantity,
+  };
+  stockInventory.push(inventory); // global variable // global scope
+};
+
+const findInventoryByName = (productId) => {
+  const inventory = stockInventory.find(function(inv)
+  {if (inv.productId === productId) {
+    return true;
+  }
+  return false;
+});
+return inventory;
+};
+
+
+// Update Stock 
+function updateStockQuantity(id, changeAmount) {
+
+  const productId = prompt("Enter productId")
+  console.log(productId)
+
+  const quantityUpdate = prompt("Enter quantityUpdate")
+  console.log(quantityUpdate)
+
+  let index = inventory.findIndex(product => product.id === Number(productId))
+if (index !== -1){
+  inventory[index].quantity = quantityUpdate
+  console.log(`stock for product ${inventory[index].name} ${inventory[index].id} updated to ${quantityUpdate}.`);
+} else {
+  console.log(`stock for product ${inventory[index].id} not found.`);
+}
+
+}
+  
 
     const productValue = product.price * product.quantity;
     totalValue += productValue;
@@ -190,6 +254,7 @@ function generateReport() {
   console.log(`Total products: ${totalProducts}`);
   console.log(`Total Inventory Value: $${totalValue.toFixed(2)}`);
 
+
   if (lowStockItems.length > 0) {
     console.log("Low Stock Items:");
     for (let Item of lowStockItems) {
@@ -209,4 +274,4 @@ function generateReport() {
 }
 generateReport()
 
- main
+ 
