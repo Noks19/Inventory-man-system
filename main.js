@@ -75,6 +75,7 @@ function addProduct() {
 function removeProduct() {
   if (inventory.length === 0) {
     alert("Inventory is empty. Nothing to remove.");
+    console.log("Inventory is empty. Nothing to remove.");
     return;
   }
 
@@ -88,6 +89,7 @@ function removeProduct() {
 
   if (!category || category.trim() === "") {
     alert("No category entered. Operation cancelled.");
+    console.log("Remove cancelled: No category entered.");
     return;
   }
 
@@ -97,17 +99,19 @@ function removeProduct() {
 
   if (productsInCategory.length === 0) {
     alert(`No products found in category '${category}'.`);
+    console.log(`No products found in category '${category}'.`);
     return;
   }
 
   const productName = prompt(
     `Products in '${category}':\n${productsInCategory
-      .map((p) => p.name)
-      .join(", ")}\n\nEnter the name of the product you want to remove:`
+      .map((p) => `ID: ${p.id} | Name: ${p.name} | Qty: ${p.quantity}`)
+      .join("\n")}\n\nEnter the name of the product you want to remove:`
   );
 
   if (!productName || productName.trim() === "") {
     alert("No product name entered. Operation cancelled.");
+    console.log("Remove cancelled: No product name entered.");
     return;
   }
 
@@ -119,6 +123,9 @@ function removeProduct() {
 
   if (index === -1) {
     alert(`Product '${productName}' was not found in category '${category}'.`);
+    console.log(
+      `Product '${productName}' not found in category '${category}'.`
+    );
     return;
   }
 
@@ -130,6 +137,7 @@ function removeProduct() {
 
   if (!confirmDelete) {
     alert("Product removal cancelled. No changes made.");
+    console.log("Product removal cancelled by user.");
     return;
   }
 
@@ -138,30 +146,59 @@ function removeProduct() {
   alert(
     `Product '${removed[0].name}' (${removed[0].category}) removed successfully!\nRemaining items in inventory: ${inventory.length}`
   );
+
+  console.log("Product removed:", removed[0]);
+  console.log("Updated Inventory:", inventory);
 }
 
-console.log("Updated Inventory:", inventory);
+
 
 // Update Stock
-function updateStockQuantity(id, changeAmount) {
-  const productId = prompt("Enter productId");
-  console.log(productId);
+function updateStockQuantity() {
+  if (inventory.length === 0) {
+    alert("Inventory is empty. Nothing to update.");
+    console.log("Inventory is empty. Nothing to update.");
+    return;
+  }
 
-  const quantityUpdate = prompt("Enter quantityUpdate");
-  console.log(quantityUpdate);
+  const productList = inventory
+    .map((p) => `ID: ${p.id} | Name: ${p.name} | Qty: ${p.quantity}`)
+    .join("\n");
 
-  let index = inventory.findIndex(
+  const productId = prompt(
+    `Enter the Product ID you want to update:\n\n${productList}`
+  );
+  console.log("Product ID entered:", productId);
+
+  const quantityUpdate = parseInt(prompt("Enter the new quantity:"), 10);
+  console.log("Quantity entered:", quantityUpdate);
+
+  const index = inventory.findIndex(
     (product) => product.id === Number(productId)
   );
+
   if (index !== -1) {
+    const oldQuantity = inventory[index].quantity;
     inventory[index].quantity = quantityUpdate;
-    console.log(
-      `stock for product ${inventory[index].name} ${inventory[index].id} updated to ${quantityUpdate}.`
+
+    alert(
+      `Stock updated!\n\nProduct: ${inventory[index].name}\nID: ${inventory[index].id}\nOld Quantity: ${oldQuantity}\nNew Quantity: ${quantityUpdate}`
     );
+
+    console.log("Stock Updated:", {
+      id: inventory[index].id,
+      name: inventory[index].name,
+      oldQuantity,
+      newQuantity: quantityUpdate,
+    });
+    console.log("Updated Inventory:", inventory);
   } else {
-    console.log(`stock for product ${inventory[index].id} not found.`);
+    alert(`Product with ID ${productId} not found.`);
+    console.log(`Product with ID ${productId} not found.`);
   }
 }
+
+
 
 function generateReport() {
   const totalProducts = inventory.length;
@@ -256,7 +293,7 @@ function inventoryApplication() {
   } else if (choice === "2") {
     removeProduct();
   } else if (choice === "3") {
-    updateStock();
+    updateStockQuantity();
   } else if (choice === "4") {
     generateReport();
   } else if (choice === "5") {
